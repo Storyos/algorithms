@@ -28,11 +28,9 @@ function solution(s, skip, index) {
     var answer = '';
     var sCharCode = getCharCode(s);
     var skipCharCode = getCharCode(skip);
-    
-    // console.log(sCharCode);
-    // console.log(skipCharCode);
     var added = addIndex(sCharCode,skipCharCode,index);
-    console.log(added);
+    
+
     for(let i=0; i<added.length; i++){
         answer+=String.fromCharCode(added[i]);
     }
