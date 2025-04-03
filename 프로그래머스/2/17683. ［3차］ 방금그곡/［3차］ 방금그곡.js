@@ -36,10 +36,6 @@ function solution(m, musicinfos) {
                     dMelody+="Y";
                 }else if(melody[i]==="A"){
                     dMelody+="Z";
-                }else if(melody[i]==="E"){
-                    dMelody+="K";
-                }else if(melody[i]==="B"){
-                    dMelody+="J";
                 }
                 i++;
             }
