@@ -18,7 +18,7 @@ function solution(scores) {
             if (peer === wanho[0] && boss === wanho[1]) return -1;
             continue;
         }
-        maxBoss = Math.max(maxBoss, boss);
+        maxBoss = boss;
         if (peer + boss > wanhoSum) rank++;
     }
 
