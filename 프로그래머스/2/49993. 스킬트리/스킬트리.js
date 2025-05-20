@@ -1,30 +1,21 @@
 function solution(skill, skill_trees) {
-    let answer =0;
-    let skill_seq=skill.split("");
-    let skillMap = new Map();
-    for(let i=0; i<skill_seq.length; i++){
-        skillMap.set(skill_seq[i],i);
+    var answer = 0;
+    for(let skill_tree of skill_trees){
+        answer+=checkValidate(skill_tree);
     }
-    
-    for(var tree of skill_trees){
-        let tmp = tree.split("");
-        let level = 0;
-        let isValid = true;
-        for(let i=0; i<tmp.length; i++){
-//             스킬트리에 있는 스킬을 배우는 경우
-            if(skillMap.has(tmp[i])){
-                if(skillMap.get(tmp[i])===level){
-                    level++;
-                }else{
-                    isValid = false;
-                    break;
-                }
+
+    function checkValidate(st){
+        let lstIdx=0;
+        for(let i=0; i<st.length; i++){
+            let index = skill.indexOf(st[i]);
+            if(index===-1) continue;
+            if(index===lstIdx){
+                lstIdx++;
+            }else{
+                return false;
             }
         }
-        if(isValid){
-            answer++;
-        }
+        return true;
     }
-    
     return answer;
 }
