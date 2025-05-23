@@ -1,38 +1,33 @@
-// a, b -> 필요한 금과 은
-// i번 도시 -> i번만 왕복 가능 편도로 
-// t[i] 소요, 최대 w[i] kg 운반가능
-// 가장 빠른시간 return 
+//필요한 금이랑 은 무게 -> a,b
+//g,s : 각 배열에 있는 금 개수
 
 function solution(a, b, g, s, w, t) {
-    var answer = -1;
-    var start = 0;
-    var end = -1;
+    const size = g.length;
+    let answer = -1;
+    let start = 0;
+    let end = -1;
     const arr = [];
     for(var i=0; i<g.length; i++){
         const v = Math.ceil((g[i]+s[i]-w[i])/w[i])*t[i]*2+t[i];
-        end = end<v?v:end;
+        end = Math.max(v,end);
     }
-    
     while(start<=end){
-        var time = Math.floor((start+end)/2);
-        // 여기서 이제 들고오는걸 체크
-        var totalGold  = 0;
-        var totalSilver = 0;
-        var totalGoldnSilver = 0;
-        for(var i=0; i<g.length; i++){
-            const roundTrip = t[i] * 2;
-            const moveCount = Math.floor(time / roundTrip) + (time % roundTrip >= t[i] ? 1 : 0);
-            const maxMoveWeight = moveCount * w[i];
-
-            const gold = Math.min(g[i], maxMoveWeight);
-            const silver = Math.min(s[i], maxMoveWeight);
-            const total = Math.min(g[i] + s[i], maxMoveWeight);
+        let time = Math.floor((start+end)/2);
+        let totalGold = 0;
+        let totalSilver = 0;
+        let total = 0;
+        for(let i=0; i<size; i++){
+            let 왕복 = t[i] *2;
+            let moveCount = Math.floor(time/왕복)
+            //첫 편도생각했을때 한번더 가능한거면
+            if(time%왕복>=t[i]) moveCount++;
+            let moveWeight = moveCount * w[i];
             
-            totalGold+=gold;
-            totalSilver+=silver;
-            totalGoldnSilver+=total;
+            totalGold+=Math.min(g[i],moveWeight);
+            totalSilver+=Math.min(s[i],moveWeight)
+            total+=Math.min(g[i]+s[i],moveWeight);
         }
-        if(totalGold>=a&&totalSilver>=b&&totalGoldnSilver>=a+b){
+        if(totalGold>=a&&totalSilver>=b&&total>=a+b){
             answer=time;
             end=time-1;
         }else{
@@ -41,5 +36,4 @@ function solution(a, b, g, s, w, t) {
     }
     
     return answer;
-    
 }
