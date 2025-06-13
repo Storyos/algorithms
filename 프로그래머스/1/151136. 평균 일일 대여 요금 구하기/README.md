@@ -1,6 +1,6 @@
 # [level 1] 평균 일일 대여 요금 구하기 - 151136 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/151136) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/151136#qna) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@ Empty
 
 ### 제출 일자
 
-2025년 06월 13일 15:00:54
+2025년 06월 13일 15:02:19
 
 ### 문제 설명
 
