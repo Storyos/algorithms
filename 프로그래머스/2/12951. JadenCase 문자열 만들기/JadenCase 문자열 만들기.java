@@ -1,18 +1,18 @@
+import java.util.*;
+
 class Solution {
     public String solution(String s) {
-        String answer = "";
-        String[] str = s.split(" ",-1);
-        for(int i=0; i<str.length; i++){
-            String[] tmp = str[i].split("");
-            tmp[0]=tmp[0].toUpperCase();
-            
-            for(int j=1; j<tmp.length; j++){
-                tmp[j]=tmp[j].toLowerCase();
+        // limit=-1 로 하면 연속된 공백(빈 문자열)도 배열에 남습니다.
+        String[] words = s.split(" ", -1);
+
+        for (int i = 0; i < words.length; i++) {
+            String w = words[i];
+            if (w.length() > 0) {
+                String lower = w.toLowerCase();
+                words[i] = lower.substring(0, 1).toUpperCase()
+                         + lower.substring(1);
             }
-            
-            str[i]=String.join("",tmp);
         }
-        answer = String.join(" ",str);
-        return answer;
+        return String.join(" ", words);
     }
 }
