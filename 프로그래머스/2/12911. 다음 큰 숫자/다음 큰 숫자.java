@@ -1,13 +1,12 @@
+import java.util.*;
 class Solution {
     public int solution(int n) {
-        int bn = Integer.bitCount(n);
-        int next = n;
+        int smallest = n & -n;
+        int ripple = n+ smallest;
+        int ones = n^ ripple;
+        ones = (ones >>> 2) / smallest;
         
-        while(true)
-        {
-         next++;
-        if(bn==Integer.bitCount(next)) return next;
-        }
+        return ripple | ones;
         
     }
 }
