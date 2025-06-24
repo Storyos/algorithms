@@ -1,39 +1,34 @@
 import java.util.*;
 class Solution {
-    List<Integer>[] graph;
-    int[] cost; 
     public int[] solution(int n, int[][] roads, int[] sources, int destination) {
-        graph = new List[n+1];
         
-        for(int i=0; i<=n; i++){
-            graph[i] = new ArrayList<>();
+        HashMap<Integer,List<Integer>> mapInfo = new HashMap<>();
+        for(int[] road : roads){
+            mapInfo
+                .computeIfAbsent(road[0],k->new ArrayList<>())
+                .add(road[1]);
+            mapInfo
+                .computeIfAbsent(road[1],k->new ArrayList<>())
+                .add(road[0]);
         }
-        for(int[] data : roads){
-            graph[data[0]].add(data[1]);
-            graph[data[1]].add(data[0]);
-        }
-
-        cost= new int[n+1];
-        Arrays.fill(cost,Integer.MAX_VALUE);
-        
-        PriorityQueue<Integer> queue = new PriorityQueue<>();
-        queue.add(destination);
-        cost[destination]=0;
-        int count = 0;
+        Integer[] distance = new Integer[n+1];
+        Arrays.fill(distance,Integer.MAX_VALUE);
+        distance[destination]=0;
+        Queue<Integer[]> queue = new LinkedList<>();
+        queue.add(new Integer[]{destination,0});
         while(!queue.isEmpty()){
-            int curNode = queue.poll();
-            for(int nextNodes : graph[curNode] ){
-                if(cost[nextNodes]>cost[curNode]+1){
-                    cost[nextNodes]=cost[curNode]+1;
-                    queue.add(nextNodes);
-                }
+            Integer[] info = queue.poll();
+            distance[info[0]]=Math.min(info[1],distance[info[0]]);
+            for(Integer nextNode : mapInfo.get(info[0])){
+                if(distance[nextNode]>info[1]+1)
+                queue.add(new Integer[]{nextNode,info[1]+1});
             }
         }
+
         int[] answer = new int[sources.length];
         for(int i=0; i<sources.length; i++){
-            answer[i]=cost[sources[i]]==Integer.MAX_VALUE?-1:cost[sources[i]];
+            answer[i] = distance[sources[i]]==Integer.MAX_VALUE?-1:distance[sources[i]];
         }
-        
         return answer;
     }
 }
